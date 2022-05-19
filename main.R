@@ -1,6 +1,5 @@
 library(rjson)
 library(ggplot2)
-library(ggpubr)
 
 result <- fromJSON(file = "json_data.json")
 summary(result)
@@ -122,25 +121,15 @@ fr_adj_plot <- ggplot(fr_adjs_df, aes(y = Freq, x = as.numeric(as.character(fr_a
     plot.title = element_text(size = rel(.7))
   )
 
-ggarrange(en_noun_plot, fr_noun_plot,
-          en_verb_plot, fr_verb_plot,
-          en_adj_plot, fr_adj_plot,
-          labels = c("English Nouns", "French Nouns",
-                    "English Verbs", "French Verbs",  
-                    "English Adjectives", "French Adjectives"))
 en_means <- as.data.frame(c(mean(as.numeric(as.character(en_nouns_df$en_nouns_cosine))),
                             mean(as.numeric(as.character(en_verbs_df$en_verbs_cosine))),
                             mean(as.numeric(as.character(en_adjs_df$en_adjs_cosine)))))
-
 colnames(en_means) <- ("Mean")
 rownames(en_means) <- c("nouns", "verbs", "adjs")
-
-
 
 fr_means <- as.data.frame(c(mean(as.numeric(as.character(fr_nouns_df$fr_nouns_cosine))),
                             mean(as.numeric(as.character(fr_verbs_df$fr_verbs_cosine))),
                             mean(as.numeric(as.character(fr_adjs_df$fr_adjs_cosine)))))
-
 colnames(fr_means) <- ("Mean")
 rownames(fr_means) <- c("nouns", "verbs", "adjs")
 
